@@ -48,6 +48,7 @@ contract FHELottery is SepoliaConfig {
 
     function registerParticipant(uint256 _lotteryId, externalEuint32 _encryptedNumber, bytes calldata _inputProof) external {
         Lottery storage lottery = lotteries[_lotteryId];
+        require(lottery.id > 0, "Lottery does not exist");
         require(lottery.isActive, "Lottery is not active");
         require(!lottery.participants[msg.sender], "Already registered");
         require(lottery.participantCount < lottery.maxParticipants, "Lottery is full");
