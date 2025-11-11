@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { CreateLotteryDialog } from '@/components/CreateLotteryDialog';
-import { RegisterDialog } from '@/components/RegisterDialog';
-import { getContract } from '@/lib/contract';
-import { initializeFHEVM, encryptNumber } from '@/lib/fhevm';
+import { CreateLotteryDialog } from '../components/CreateLotteryDialog';
+import { RegisterDialog } from '../components/RegisterDialog';
+import { getContract } from '../lib/contract';
+import { initializeFHEVM, encryptNumber } from '../lib/fhevm';
 
 export default function Index() {
   const [lotteries, setLotteries] = useState([]);
