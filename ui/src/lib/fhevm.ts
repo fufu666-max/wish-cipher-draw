@@ -32,18 +32,20 @@ export async function encryptNumber(
   userAddress: string,
   number: number
 ) {
-  if (!userAddress) {
+  let address = userAddress;
+  if (!address) {
     if (typeof window !== 'undefined' && (window as any).ethereum) {
-      const provider = new (await import('ethers')).BrowserProvider((window as any).ethereum);
+      const { BrowserProvider } = await import('ethers');
+      const provider = new BrowserProvider((window as any).ethereum);
       const signer = await provider.getSigner();
-      userAddress = await signer.getAddress();
+      address = await signer.getAddress();
     } else {
       throw new Error('User address is required');
     }
   }
   
   const encryptedInput = fhevm
-    .createEncryptedInput(contractAddress, userAddress)
+    .createEncryptedInput(contractAddress, address)
     .add32(number);
   
   return await encryptedInput.encrypt();
