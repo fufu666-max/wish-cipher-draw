@@ -32,10 +32,12 @@ export default function Index() {
   const handleCreateLottery = async (name: string, maxParticipants: number) => {
     try {
       const contract = await getContract();
-      await contract.createLottery(name, maxParticipants);
+      const tx = await contract.createLottery(name, maxParticipants);
+      await tx.wait();
       await loadLotteries();
     } catch (error) {
       console.error('Failed to create lottery:', error);
+      alert('Failed to create lottery. Please try again.');
     }
   };
 
