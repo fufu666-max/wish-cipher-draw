@@ -70,6 +70,7 @@ contract FHELottery is SepoliaConfig {
 
     function drawWinner(uint256 _lotteryId) external {
         Lottery storage lottery = lotteries[_lotteryId];
+        require(lottery.id > 0, "Lottery does not exist");
         require(lottery.creator == msg.sender, "Only creator can draw winner");
         require(lottery.isActive, "Lottery is not active");
         require(!lottery.isDrawn, "Winner already drawn");
