@@ -5,16 +5,18 @@ import { getContract } from '../lib/contract';
 import { initializeFHEVM, encryptNumber } from '../lib/fhevm';
 
 export default function Index() {
-  const [lotteries, setLotteries] = useState([]);
+  const [lotteries, setLotteries] = useState<any[]>([]);
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [registerDialogOpen, setRegisterDialogOpen] = useState(false);
-  const [selectedLottery, setSelectedLottery] = useState(null);
+  const [selectedLottery, setSelectedLottery] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
   
   useEffect(() => {
     loadLotteries();
   }, []);
 
   const loadLotteries = async () => {
+    setLoading(true);
     try {
       const contract = await getContract();
       const count = await contract.getLotteryCount();
@@ -39,6 +41,8 @@ export default function Index() {
       setLotteries(lotteryList);
     } catch (error) {
       console.error('Failed to load lotteries:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
