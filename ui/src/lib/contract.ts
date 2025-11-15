@@ -38,7 +38,11 @@ export async function getContract(signerOrProvider?: any, chainId?: number) {
     }
   }
   
-  return new ethers.Contract(address, ABI, signerOrProvider);
+  try {
+    return new ethers.Contract(address, ABI, signerOrProvider);
+  } catch (error: any) {
+    throw new Error(`Failed to create contract instance: ${error.message}`);
+  }
 }
 
 
