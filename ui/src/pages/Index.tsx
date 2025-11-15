@@ -85,7 +85,9 @@ export default function Index() {
           Create Lottery
         </button>
         <div className="space-y-4">
-          {lotteries.length === 0 ? (
+          {loading ? (
+            <p className="text-gray-500">Loading lotteries...</p>
+          ) : lotteries.length === 0 ? (
             <p className="text-gray-500">No lotteries available. Create one to get started!</p>
           ) : (
             lotteries.map((lottery) => (
