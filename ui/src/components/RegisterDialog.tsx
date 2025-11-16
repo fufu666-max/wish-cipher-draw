@@ -10,10 +10,12 @@ export function RegisterDialog({ open, onOpenChange, onRegister }: RegisterDialo
   const [number, setNumber] = useState(0);
 
   const handleSubmit = () => {
-    if (number > 0) {
+    if (number > 0 && number <= 1000) {
       onRegister(number);
       setNumber(0);
       onOpenChange(false);
+    } else {
+      alert('Please enter a number between 1 and 1000');
     }
   };
 
